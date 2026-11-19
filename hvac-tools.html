@@ -196,6 +196,121 @@ function diagnose() {
     "5. Compare findings with the manufacturer's service documentation.\n\n" +
     "This is a basic checklist, not an AI diagnosis. It does not identify a failed component. Never bypass safety controls. Stop if you detect gas odor, smoke, burning, arcing, or a suspected carbon monoxide hazard.";
 }
+
+function diagnose() {
+  const equipment = document.getElementById("equipment").value;
+  const symptoms = document.getElementById("symptoms").value.trim();
+  const result = document.getElementById("result");
+
+  if (!symptoms) {
+    alert("Please describe the HVAC problem first.");
+    return;
+  }
+
+  const s = symptoms.toLowerCase();
+  let diagnosis = "";
+  let checks = [];
+
+  if (/gas smell|smell gas|rotten egg/.test(s)) {
+    diagnosis = "POTENTIAL GAS LEAK - EMERGENCY";
+    checks = [
+      "Evacuate the area immediately.",
+      "Do not operate electrical switches.",
+      "Call the gas utility or emergency services from a safe location.",
+      "Do not restart equipment until cleared by qualified personnel."
+    ];
+  } else if (/smoke|burning smell|burning wire/.test(s)) {
+    diagnosis = "POTENTIAL ELECTRICAL OR FIRE HAZARD";
+    checks = [
+      "Stop equipment operation if safe.",
+      "Isolate power if safe to do so.",
+      "Inspect for overheating and damaged wiring.",
+      "Have a qualified technician investigate."
+    ];
+  } else if (/not cooling|no cool|warm air|ac not cold/.test(s)) {
+    diagnosis = "COOLING PERFORMANCE FAILURE";
+    checks = [
+      "Verify thermostat mode and setpoint.",
+      "Check filter and return airflow.",
+      "Inspect evaporator and condenser coils.",
+      "Check condensate drainage.",
+      "Verify compressor and outdoor fan operation.",
+      "Check refrigerant circuit for leaks."
+    ];
+  } else if (/not heating|no heat|cold air|furnace/.test(s)) {
+    diagnosis = "HEATING SYSTEM FAILURE";
+    checks = [
+      "Verify thermostat settings.",
+      "Check filter and airflow.",
+      "Read furnace fault codes.",
+      "Inspect ignition and flame sensing.",
+      "Check safety switches and limit controls.",
+      "Verify combustion and venting."
+    ];
+  } else if (/compressor|won't start|will not start|not starting/.test(s)) {
+    diagnosis = "COMPRESSOR STARTING FAILURE";
+    checks = [
+      "Verify thermostat cooling demand.",
+      "Check disconnect and circuit protection.",
+      "Inspect contactor and control voltage.",
+      "Inspect capacitor where applicable.",
+      "Check compressor windings.",
+      "Verify safety controls."
+    ];
+  } else if (/ice|frozen|freezing|frost/.test(s)) {
+    diagnosis = "EVAPORATOR FREEZING";
+    checks = [
+      "Turn off cooling and allow ice to thaw.",
+      "Inspect filter and airflow.",
+      "Check blower operation.",
+      "Inspect evaporator coil.",
+      "Check refrigerant charge and metering device."
+    ];
+  } else if (/water leak|leaking water|dripping|condensate/.test(s)) {
+    diagnosis = "CONDENSATE DRAINAGE PROBLEM";
+    checks = [
+      "Inspect drain pan.",
+      "Check condensate drain for blockage.",
+      "Inspect drain trap and slope.",
+      "Check condensate pump.",
+      "Inspect drain connections."
+    ];
+  } else if (/short cycle|cycling on and off|keeps shutting/.test(s)) {
+    diagnosis = "SHORT CYCLING";
+    checks = [
+      "Check thermostat location and settings.",
+      "Inspect filter and airflow.",
+      "Check system sizing.",
+      "Inspect safety controls.",
+      "Evaluate refrigerant and electrical conditions."
+    ];
+  } else {
+    diagnosis = "GENERAL HVAC TROUBLESHOOTING";
+    checks = [
+      "Record exact symptoms and when they occur.",
+      "Verify thermostat operation.",
+      "Inspect filter and airflow.",
+      "Check equipment fault codes.",
+      "Inspect electrical and mechanical components safely.",
+      "Compare readings with manufacturer specifications."
+    ];
+  }
+
+  result.style.display = "block";
+  result.style.whiteSpace = "pre-wrap";
+
+  result.textContent =
+    "HVAC AI PRO - DIAGNOSTIC REPORT\n\n" +
+    "Equipment: " + equipment + "\n" +
+    "Reported symptoms: " + symptoms + "\n\n" +
+    "PRIMARY DIAGNOSTIC CATEGORY:\n" +
+    diagnosis + "\n\n" +
+    "RECOMMENDED TECHNICIAN CHECKS:\n" +
+    checks.map((item, i) => (i + 1) + ". " + item).join("\n") +
+    "\n\nPOSSIBLE CAUSES: Investigation paths, not confirmed failures." +
+    "\n\nFollow manufacturer procedures, lockout/tagout, and applicable safety codes.";
+}
+
 </script>
 </body>
 </html>
