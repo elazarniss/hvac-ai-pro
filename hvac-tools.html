@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#071522">
+<title>HVAC AI PRO | Smart HVAC Assistant</title>
+<style>
+:root {
+  --bg:#071522;
+  --panel:#102536;
+  --accent:#27d5c0;
+  --text:#f2f7fa;
+  --muted:#9db0bf;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+header {
+  padding:18px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #20394b;
+}
+.logo { font-size:21px;font-weight:bold; }
+.logo span { color:var(--accent); }
+nav a {
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:15px;
+  font-size:13px;
+}
+main { max-width:1100px;margin:auto;padding:65px 6%; }
+.tag {
+  color:var(--accent);
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:bold;
+}
+h1 { font-size:clamp(38px,8vw,65px);margin:18px 0; }
+h1 span { color:var(--accent); }
+p { color:var(--muted);line-height:1.7; }
+.btn {
+  display:inline-block;
+  background:var(--accent);
+  color:#061722;
+  padding:14px 22px;
+  border:0;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:none;
+  margin-top:12px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:45px;
+}
+.card {
+  background:var(--panel);
+  padding:23px;
+  border:1px solid #254154;
+  border-radius:14px;
+}
+.card h3 { margin-top:0; }
+section { margin-top:65px; }
+input,select,textarea {
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  background:#071522;
+  color:white;
+  border:1px solid #345064;
+  border-radius:8px;
+}
+label { font-size:13px;color:#b8c8d4; }
+.result {
+  display:none;
+  margin-top:20px;
+  padding:18px;
+  border:1px solid var(--accent);
+  border-radius:10px;
+  white-space:pre-wrap;
+}
+footer {
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  border-top:1px solid #20394b;
+  margin-top:70px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">HVAC <span>AI PRO</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#diagnose">Diagnose</a>
+    <a href="#tools">Tools</a>
+  </nav>
+</header>
+
+<main>
+<section id="home">
+  <div class="tag">THE SMARTER HVAC WORKFLOW</div>
+  <h1>Diagnose smarter.<br><span>Work with confidence.</span></h1>
+  <p>Your intelligent HVAC assistant. Get organized troubleshooting guidance, understand equipment problems, and build your technical knowledge.</p>
+  <a class="btn" href="#diagnose">Start a Diagnosis →</a>
+
+  <div class="grid" id="tools">
+    <div class="card">
+      <h3>⚡ AI Diagnostics</h3>
+      <p>Work through HVAC symptoms with structured troubleshooting guidance.</p>
+    </div>
+    <div class="card">
+      <h3>📷 Part Identification</h3>
+      <p>Prepare to identify HVAC components from equipment photos.</p>
+    </div>
+    <div class="card">
+      <h3>📚 Equipment Knowledge</h3>
+      <p>Organize manufacturer information and technical references.</p>
+    </div>
+    <div class="card">
+      <h3>🔧 Technician Tools</h3>
+      <p>Access helpful calculations and diagnostic checklists.</p>
+    </div>
+  </div>
+</section>
+
+<section id="diagnose">
+  <div class="tag">HVAC TROUBLESHOOTING</div>
+  <h2>Start a diagnosis</h2>
+  <p>Enter the symptoms you're seeing. This first version provides a basic demonstration, not a verified AI diagnosis.</p>
+
+  <label>Equipment type</label>
+  <select id="equipment">
+    <option>Central air conditioner</option>
+    <option>Gas furnace</option>
+    <option>Heat pump</option>
+    <option>Mini split</option>
+    <option>Boiler</option>
+    <option>Commercial HVAC</option>
+    <option>Refrigeration</option>
+  </select>
+
+  <label>What is happening?</label>
+  <textarea id="symptoms" rows="4" placeholder="Example: AC runs but isn't cooling..."></textarea>
+
+  <button class="btn" onclick="diagnose()">Generate troubleshooting checklist</button>
+  <div class="result" id="result"></div>
+</section>
+
+<section>
+  <div class="tag">COMING NEXT</div>
+  <h2>Built for HVAC professionals</h2>
+  <p>Our roadmap includes a connected AI diagnostic engine, photo identification, equipment manuals, model-specific error codes, saved service jobs, and technician accounts.</p>
+  <div class="card">
+    <h3>HVAC AI PRO</h3>
+    <p>Planned membership: $14.99/month. No paid subscription or checkout is active in this prototype.</p>
+  </div>
+</section>
+</main>
+
+<footer>HVAC AI PRO © 2026 · Built for smarter HVAC troubleshooting</footer>
+
+<script>
+function diagnose() {
+  const equipment = document.getElementById("equipment").value;
+  const symptoms = document.getElementById("symptoms").value.trim();
+  const result = document.getElementById("result");
+
+  if (!symptoms) {
+    alert("Please describe the HVAC problem first.");
+    return;
+  }
+
+  result.style.display = "block";
+  result.textContent =
+    "HVAC AI PRO — DEMO CHECKLIST\n\n" +
+    "Equipment: " + equipment + "\n" +
+    "Reported symptoms: " + symptoms + "\n\n" +
+    "Suggested next steps:\n" +
+    "1. Record the equipment model and serial number.\n" +
+    "2. Check the thermostat settings and displayed fault codes.\n" +
+    "3. Inspect the air filter and accessible airflow paths.\n" +
+    "4. Record relevant temperature and electrical measurements using safe procedures.\n" +
+    "5. Compare findings with the manufacturer's service documentation.\n\n" +
+    "This is a basic checklist, not an AI diagnosis. It does not identify a failed component. Never bypass safety controls. Stop if you detect gas odor, smoke, burning, arcing, or a suspected carbon monoxide hazard.";
+}
+</script>
+</body>
+</html>
